@@ -68,10 +68,10 @@ export default function Projects() {
           {projects.map((project, i) => (
             <div
               key={project.id}
-              className="project-card group relative rounded-3xl overflow-hidden glass glow-hover cursor-none"
+              className="project-card group relative rounded-3xl overflow-hidden glass glow-hover cursor-pointer"
               onMouseEnter={(e) => projectHoverIn(e.currentTarget)}
               onMouseLeave={(e) => projectHoverOut(e.currentTarget)}
-              data-cursor="VIEW"
+
             >
               {/* Image area */}
               <div className="project-img-wrap relative aspect-video overflow-hidden">
@@ -95,12 +95,12 @@ export default function Projects() {
                 {/* Hover overlay */}
                 <div className="project-overlay absolute inset-0 flex items-center justify-center gap-4 opacity-0"
                   style={{ background: 'rgba(5,5,5,0.6)', backdropFilter: 'blur(4px)' }}>
-                  <a href={project.github} data-cursor="OPEN"
+                  <a href={project.github}
                     className="magnetic-btn glass p-3 rounded-full hover:border-white/30 transition-colors"
                     onClick={(e) => e.stopPropagation()}>
                     <FiGithub size={18} />
                   </a>
-                  <a href={project.live} data-cursor="OPEN"
+                  <a href={project.live}
                     className="magnetic-btn glass p-3 rounded-full hover:border-white/30 transition-colors"
                     onClick={(e) => e.stopPropagation()}>
                     <FiExternalLink size={18} />

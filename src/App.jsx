@@ -1,16 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Loader from './components/Loader'
-import CustomCursor from './components/CustomCursor'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import { useLenis } from './hooks/useLenis'
+import { initMagnetic } from './animations/magneticAnimation'
 
 function AppInner() {
   useLenis()
+
+  useEffect(() => {
+    initMagnetic()
+  }, [])
+
   return (
     <>
-      <CustomCursor />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

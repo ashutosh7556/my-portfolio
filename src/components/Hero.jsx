@@ -67,7 +67,7 @@ export default function Hero() {
         {/* CTAs */}
         <div className="hero-cta flex items-center justify-center gap-4 flex-wrap">
           <button
-            data-cursor="VIEW"
+
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             className="magnetic-btn group relative px-8 py-3.5 rounded-full overflow-hidden font-mono text-xs tracking-widest uppercase"
             style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)' }}
@@ -77,7 +77,7 @@ export default function Hero() {
               style={{ background: 'linear-gradient(135deg, #a855f7, #ec4899)' }} />
           </button>
           <button
-            data-cursor="OPEN"
+
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             className="magnetic-btn glass glass-hover px-8 py-3.5 rounded-full font-mono text-xs tracking-widest uppercase text-white/70 hover:text-white"
           >

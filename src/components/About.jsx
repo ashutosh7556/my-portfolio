@@ -78,7 +78,7 @@ export default function About() {
             </p>
 
             <button
-              data-cursor="OPEN"
+
               className="magnetic-btn group flex items-center gap-3 font-mono text-xs tracking-widest uppercase text-white/60 hover:text-white transition-colors"
             >
               <span>Download Resume</span>
