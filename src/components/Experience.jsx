@@ -7,24 +7,11 @@ gsap.registerPlugin(ScrollTrigger)
 const experiences = [
   {
     role: 'Full Stack Developer',
-    company: 'Freelance',
-    period: '2023 — Present',
-    desc: 'Building end-to-end web applications for clients across various industries. Specializing in React frontends with Laravel/Node.js backends.',
-    tech: ['React', 'Laravel', 'Node.js', 'MySQL'],
-  },
-  {
-    role: 'Backend Developer',
-    company: 'Tech Startup',
-    period: '2022 — 2023',
-    desc: 'Developed RESTful APIs and microservices architecture. Improved system performance by 40% through query optimization and caching strategies.',
-    tech: ['PHP', 'Laravel', 'MongoDB', 'Docker'],
-  },
-  {
-    role: 'Junior Developer',
-    company: 'Digital Agency',
-    period: '2021 — 2022',
-    desc: 'Collaborated on multiple client projects, building responsive web interfaces and integrating third-party APIs.',
-    tech: ['JavaScript', 'React', 'MySQL', 'Git'],
+    company: 'Skyllect',
+    url: 'https://skyllect.com/',
+    period: '2025 — Present',
+    desc: 'Working as a Full Stack Developer at Skyllect, building and maintaining web applications end-to-end.',
+    tech: [],
   },
 ]
 
@@ -54,21 +41,24 @@ export default function Experience() {
   }, [])
 
   const exp = experiences[active]
+  // A single role needs no picker column — that layout leaves half the row empty.
+  const multi = experiences.length > 1
 
   return (
-    <section id="experience" ref={sectionRef} className="relative py-32 md:py-48">
+    <section id="experience" ref={sectionRef} className="relative py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="exp-label flex items-center gap-4 mb-20">
+        <div className="exp-label flex items-center gap-4 mb-12">
           <div className="w-8 h-px bg-indigo-500" />
           <span className="font-mono text-xs tracking-[0.4em] text-indigo-400 uppercase">Experience</span>
         </div>
 
-        <h2 className="font-display font-bold text-4xl md:text-6xl leading-tight mb-16">
+        <h2 className="font-display font-bold text-4xl md:text-6xl leading-tight mb-12">
           Where I've <span className="text-gradient">worked</span>
         </h2>
 
-        <div className="grid md:grid-cols-5 gap-8">
+        <div className={multi ? 'grid md:grid-cols-5 gap-8' : ''}>
           {/* Timeline list */}
+          {multi && (
           <div className="md:col-span-2 flex flex-col gap-2">
             {experiences.map((e, i) => (
               <button
@@ -90,20 +80,37 @@ export default function Experience() {
               </button>
             ))}
           </div>
+          )}
 
           {/* Detail panel */}
-          <div className="exp-detail md:col-span-3 glass rounded-2xl p-8">
+          <div className={`exp-detail glass rounded-2xl p-8 ${multi ? 'md:col-span-3' : 'max-w-3xl'}`}>
             <div className="font-mono text-xs text-indigo-400 tracking-widest uppercase mb-2">{exp.period}</div>
             <h3 className="font-display font-bold text-2xl md:text-3xl mb-2">{exp.role}</h3>
-            <div className="font-mono text-sm text-white/40 mb-6">@ {exp.company}</div>
-            <p className="text-white/60 leading-relaxed mb-8">{exp.desc}</p>
-            <div className="flex flex-wrap gap-2">
-              {exp.tech.map((t) => (
-                <span key={t} className="glass px-3 py-1.5 rounded-full font-mono text-xs text-indigo-300 border border-indigo-500/20">
-                  {t}
-                </span>
-              ))}
+            <div className="font-mono text-sm text-white/40 mb-6">
+              @{' '}
+              {exp.url ? (
+                <a
+                  href={exp.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-300 hover:text-indigo-200 transition-colors underline decoration-indigo-500/30 underline-offset-4"
+                >
+                  {exp.company}
+                </a>
+              ) : (
+                exp.company
+              )}
             </div>
+            <p className={`text-white/60 leading-relaxed ${exp.tech.length > 0 ? 'mb-8' : ''}`}>{exp.desc}</p>
+            {exp.tech.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {exp.tech.map((t) => (
+                  <span key={t} className="glass px-3 py-1.5 rounded-full font-mono text-xs text-indigo-300 border border-indigo-500/20">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

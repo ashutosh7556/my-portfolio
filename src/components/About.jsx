@@ -1,13 +1,6 @@
 import { useEffect } from 'react'
 import { runAboutAnimation } from '../animations/aboutAnimation'
 
-const stats = [
-  { value: '3+', label: 'Years Experience' },
-  { value: '20+', label: 'Projects Built' },
-  { value: '10+', label: 'Technologies' },
-  { value: '5+', label: 'Happy Clients' },
-]
-
 export default function About() {
   useEffect(() => {
     runAboutAnimation()
@@ -85,16 +78,6 @@ export default function About() {
               <div className="w-8 h-px bg-white/30 group-hover:w-12 transition-all duration-300" />
             </button>
           </div>
-        </div>
-
-        {/* Stats */}
-        <div className="stats-row grid grid-cols-2 md:grid-cols-4 gap-4 mt-24">
-          {stats.map((s) => (
-            <div key={s.label} className="stat-card glass glass-hover rounded-2xl p-6 text-center glow-hover">
-              <div className="font-display font-bold text-4xl text-gradient mb-2">{s.value}</div>
-              <div className="font-mono text-xs text-white/40 tracking-widest uppercase">{s.label}</div>
-            </div>
-          ))}
         </div>
       </div>
     </section>

@@ -31,21 +31,6 @@ export function runAboutAnimation() {
     }
   )
 
-  // Stats cards
-  gsap.fromTo(
-    '.stat-card',
-    { y: 40, opacity: 0, scale: 0.95 },
-    {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      duration: 0.7,
-      stagger: 0.1,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.stats-row', start: 'top 85%' },
-    }
-  )
-
   // Parallax bg
   gsap.to('.about-bg-orb', {
     y: -80,

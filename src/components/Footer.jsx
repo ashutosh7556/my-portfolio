@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import { FiGithub, FiLinkedin, FiTwitter, FiArrowUp } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiTwitter, FiInstagram, FiArrowUp } from 'react-icons/fi'
 
 const socials = [
   { icon: FiGithub, href: 'https://github.com/ashutosh7556', label: 'GitHub' },
-  { icon: FiLinkedin, href: '#', label: 'LinkedIn' },
-  { icon: FiTwitter, href: '#', label: 'Twitter' },
+  { icon: FiLinkedin, href: 'https://www.linkedin.com/in/ashutosh-pandey-b3470b35a/', label: 'LinkedIn' },
+  { icon: FiTwitter, href: 'https://x.com/ashutoshpa18043', label: 'X' },
+  { icon: FiInstagram, href: 'https://www.instagram.com/ashutosh_n13/', label: 'Instagram' },
 ]
 
 export default function Footer() {

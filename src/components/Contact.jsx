@@ -7,12 +7,17 @@ gsap.registerPlugin(ScrollTrigger)
 
 const TYPED_TEXT = '> Ready to collaborate...'
 
+// Web3Forms delivers submissions to the inbox the access key was issued for.
+// The key is public by design; spam is handled by their filter + the honeypot below.
+const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
+
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState(null)
   const [typed, setTyped] = useState('')
   const sectionRef = useRef(null)
-  const typedRef = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -40,14 +45,48 @@ export default function Contact() {
     return () => ctx.revert()
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+
+    if (!ACCESS_KEY) {
+      setError('Form is not configured yet. Email me directly at ap3940862@gmail.com.')
+      return
+    }
+
     const btn = e.currentTarget.querySelector('button[type=submit]')
     gsap.to(btn, { scale: 0.95, duration: 0.1, yoyo: true, repeat: 1 })
-    setTimeout(() => {
+
+    setSending(true)
+    setError(null)
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject: `New message from ${form.name} — Portfolio`,
+          from_name: 'Ashutosh Portfolio',
+          // Makes "Reply" in Gmail go to the visitor, not to Web3Forms.
+          replyto: form.email,
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          'Sent at': new Date().toLocaleString(),
+        }),
+      })
+      const data = await res.json()
+
+      if (!res.ok || !data.success) throw new Error(data.message || 'Submission failed')
+
       setSent(true)
+      setForm({ name: '', email: '', message: '' })
       gsap.fromTo('.success-msg', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' })
-    }, 600)
+    } catch (err) {
+      setError(`Could not send: ${err.message}. Email me directly at ap3940862@gmail.com.`)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -91,6 +130,14 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Honeypot — bots fill it, humans never see it */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  className="hidden"
+                />
                 <div className="grid md:grid-cols-2 gap-5">
                   <div>
                     <label className="font-mono text-xs text-white/40 tracking-widest uppercase block mb-2">
@@ -132,13 +179,17 @@ export default function Contact() {
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 font-mono text-sm text-white placeholder-white/20 focus:outline-none focus:border-indigo-500/50 transition-colors resize-none"
                   />
                 </div>
+                {error && (
+                  <p className="font-mono text-xs text-red-400 leading-relaxed">{error}</p>
+                )}
+
                 <button
                   type="submit"
-
-                  className="magnetic-btn group flex items-center gap-3 px-8 py-4 rounded-xl font-mono text-sm tracking-widest uppercase transition-all duration-300"
+                  disabled={sending}
+                  className="magnetic-btn group flex items-center gap-3 px-8 py-4 rounded-xl font-mono text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                   style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)' }}
                 >
-                  <span>Send Message</span>
+                  <span>{sending ? 'Sending...' : 'Send Message'}</span>
                   <FiSend size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                 </button>
               </form>
