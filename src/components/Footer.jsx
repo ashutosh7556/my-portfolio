@@ -40,7 +40,7 @@ export default function Footer() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              data-cursor="OPEN"
+
               className="magnetic-btn glass glass-hover w-10 h-10 rounded-full flex items-center justify-center text-white/50 hover:text-white transition-colors"
               aria-label={label}
             >
@@ -57,7 +57,7 @@ export default function Footer() {
         {/* Back to top */}
         <button
           onClick={scrollTop}
-          data-cursor="SCROLL"
+
           className="footer-item magnetic-btn glass glass-hover w-10 h-10 rounded-full flex items-center justify-center text-white/50 hover:text-white transition-colors"
           aria-label="Back to top"
         >

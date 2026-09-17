@@ -134,7 +134,7 @@ export default function Contact() {
                 </div>
                 <button
                   type="submit"
-                  data-cursor="CLICK"
+
                   className="magnetic-btn group flex items-center gap-3 px-8 py-4 rounded-xl font-mono text-sm tracking-widest uppercase transition-all duration-300"
                   style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)' }}
                 >
