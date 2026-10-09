@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import gsap from 'gsap'
 
 const links = ['About', 'Skills', 'Experience', 'Projects', 'Contact']
 
 export default function Navbar() {
+  const navigate = useNavigate()
+  const location = useLocation()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const navRef = useRef(null)
@@ -36,7 +39,20 @@ export default function Navbar() {
 
   const scrollTo = (id) => {
     setMenuOpen(false)
-    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })
+    const targetId = id.toLowerCase()
+    if (location.pathname !== '/') {
+      navigate(`/#${targetId}`)
+    } else {
+      document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const handleLogoClick = () => {
+    if (location.pathname !== '/') {
+      navigate('/')
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   return (
@@ -51,7 +67,7 @@ export default function Navbar() {
       }`}>
         {/* Logo */}
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={handleLogoClick}
           className="magnetic-btn font-display font-bold text-xl text-gradient"
         >
           A.

@@ -16,8 +16,10 @@ export default function Footer() {
     const ctx = gsap.context(() => {
       gsap.fromTo('.footer-item',
         { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out',
-          scrollTrigger: { trigger: footerRef.current, start: 'top 90%' } }
+        {
+          y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out',
+          scrollTrigger: { trigger: footerRef.current, start: 'top 90%' }
+        }
       )
     }, footerRef)
     return () => ctx.revert()
@@ -52,7 +54,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="footer-item font-mono text-xs text-white/30 tracking-wider">
-          © 2024 Ashutosh. All rights reserved.
+          © 2026 Ashutosh. All rights reserved.
         </div>
 
         {/* Back to top */}

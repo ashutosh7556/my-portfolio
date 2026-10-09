@@ -92,11 +92,6 @@ export default function Hero() {
         <div className="w-px h-12 bg-gradient-to-b from-white/30 to-transparent animate-pulse" />
         <FiArrowDown className="text-white/30 animate-bounce" size={14} />
       </div>
-
-      {/* Corner decorations */}
-      <div className="absolute top-8 left-8 font-mono text-[10px] text-white/20 tracking-widest">
-        PORTFOLIO / 2024
-      </div>
       <div className="absolute top-8 right-8 font-mono text-[10px] text-white/20 tracking-widest">
         FULL STACK DEV
       </div>
